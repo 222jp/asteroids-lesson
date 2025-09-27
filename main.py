@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from constants import *
 from player import *
 from circleshape import *
@@ -39,9 +40,13 @@ def main():
                 return
 
         screen.fill((0, 0, 0))
+        updatable.update(dt)
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game over!")
+                sys.exit(0)
         for obj in drawable:
             obj.draw(screen)
-        updatable.update(dt)
         pygame.display.flip()
 
         dt = clock.tick(60) / 1000
